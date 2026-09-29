@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan SSW Kaigo (特定技能 介護) - IADL & Pekerjaan Rumah Tangga</title>
+    <title>Latihan SSW Kaigo (特定技能 介護) - Platform Kuis & Belajar</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,26 +83,34 @@
 
     <!-- ==================== HEADER ==================== -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
 
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-rosebrand-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-rosebrand-500/20">
-                    <i class="fa-solid fa-hand-holding-medical"></i>
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-start">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-rosebrand-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-rosebrand-500/20">
+                        <i class="fa-solid fa-hand-holding-medical"></i>
+                    </div>
+
+                    <div>
+                        <h1 class="font-bold text-slate-900 leading-tight text-base sm:text-lg">
+                            SSW Kaigo (介護)
+                        </h1>
+
+                        <p id="headerSubTitle" class="text-xs text-slate-500 font-medium">
+                            Hari Pertama: IADL & Pekerjaan Rumah Tangga
+                        </p>
+                    </div>
                 </div>
 
-                <div>
-                    <h1 class="font-bold text-slate-900 leading-tight text-base sm:text-lg">
-                        SSW Kaigo (介護)
-                    </h1>
-
-                    <p class="text-xs text-slate-500 font-medium">
-                        IADL & Pekerjaan Rumah Tangga
-                    </p>
-                </div>
+                <!-- Dropdown Pilih Set Soal Hari -->
+                <select id="daySelector" onchange="changeDay(this.value)" class="bg-slate-100 border border-slate-200 text-slate-700 text-xs sm:text-sm font-bold rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-rosebrand-500">
+                    <option value="1">Hari Ke-1 (30 Soal)</option>
+                    <option value="2">Hari Ke-2 (50 Soal)</option>
+                </select>
             </div>
 
             <!-- Header Controls -->
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
 
                 <button
                     id="btnQuizMode"
@@ -110,7 +118,7 @@
                     class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition bg-rosebrand-600 text-white shadow-sm flex items-center gap-1.5">
 
                     <i class="fa-solid fa-circle-play"></i>
-                    <span class="hidden sm:inline">Mode</span> Kuis
+                    <span class="inline">Mode Kuis</span>
                 </button>
 
                 <button
@@ -119,7 +127,7 @@
                     class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-lg transition border border-slate-200 text-slate-600 hover:bg-slate-100 flex items-center gap-1.5">
 
                     <i class="fa-solid fa-book-open text-rosebrand-600"></i>
-                    <span class="hidden sm:inline">Mode</span> Belajar
+                    <span class="inline">Mode Belajar</span>
                 </button>
 
             </div>
@@ -145,15 +153,23 @@
                     <i class="fa-solid fa-house-medical"></i>
                 </div>
 
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
-                    Simulasi Kuis SSW Kaigo
+                <h2 id="startCardTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+                    Simulasi Kuis SSW Kaigo - Hari 1
                 </h2>
 
-                <p class="text-slate-600 max-w-md text-sm sm:text-base mb-6 leading-relaxed">
-                    Uji pengetahuan Anda tentang
-                    <b>IADL dan Pekerjaan Rumah Tangga</b>
-                    dalam perawatan lansia.
+                <p id="startCardDesc" class="text-slate-600 max-w-md text-sm sm:text-base mb-6 leading-relaxed">
+                    Uji pengetahuan Anda tentang <b>IADL dan Pekerjaan Rumah Tangga</b> dalam perawatan lansia.
                 </p>
+
+                <!-- Pemilih Hari di Card Start -->
+                <div class="flex items-center gap-2 mb-6 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                    <button id="btnSelectDay1" onclick="changeDay('1')" class="px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-rosebrand-600 shadow-sm">
+                        Hari 1 (30 Soal)
+                    </button>
+                    <button id="btnSelectDay2" onclick="changeDay('2')" class="px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-600 hover:bg-white/50">
+                        Hari 2 (50 Soal)
+                    </button>
+                </div>
 
                 <div class="grid grid-cols-3 gap-3 w-full max-w-md mb-8 text-center">
 
@@ -162,7 +178,7 @@
                             TOTAL SOAL
                         </span>
 
-                        <span class="text-slate-800 font-bold text-lg">
+                        <span id="startCardTotal" class="text-slate-800 font-bold text-lg">
                             30 Soal
                         </span>
                     </div>
@@ -244,7 +260,7 @@
 
                             <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-rosebrand-50 text-rosebrand-700 rounded-full text-xs font-bold border border-rosebrand-100">
 
-                                <span>Soal Kaigo</span>
+                                <span id="quizDayBadge">Hari 1</span>
 
                                 <span id="questionNumberBadge">
                                     #1
@@ -437,11 +453,11 @@
                     <h2 class="text-xl font-bold mb-1 flex items-center gap-2">
 
                         <i class="fa-solid fa-graduation-cap text-rosebrand-300"></i>
-                        Mode Belajar Kaigo
+                        <span id="studyModeTitle">Mode Belajar Kaigo - Hari 1</span>
 
                     </h2>
 
-                    <p class="text-rosebrand-200 text-xs sm:text-sm">
+                    <p id="studyModeDesc" class="text-rosebrand-200 text-xs sm:text-sm">
                         Pelajari 30 soal IADL dan pekerjaan rumah tangga beserta kunci jawaban dan pembahasannya.
                     </p>
 
@@ -492,12 +508,11 @@
 
         /*
         ============================================================
-        DATA SOAL
+        DATA SOAL HARI 1 & HARI 2
         ============================================================
         */
 
-        const questionsData = [
-
+        const questionsDay1 = [
             {
                 id: 1,
                 question: "Apa yang dimaksud dengan IADL?",
@@ -509,7 +524,6 @@
                 answer: 1,
                 explanation: "IADL adalah singkatan dari Instrumental Activities of Daily Living, yaitu aktivitas kehidupan sehari-hari yang berkaitan dengan kemampuan seseorang menjalankan kehidupan secara mandiri, seperti memasak, berbelanja, mengelola uang, dan menggunakan transportasi."
             },
-
             {
                 id: 2,
                 question: "Di bawah ini yang merupakan bagian dari IADL adalah...",
@@ -521,7 +535,6 @@
                 answer: 0,
                 explanation: "Memasak, membersihkan rumah, dan mencuci merupakan contoh aktivitas IADL karena aktivitas tersebut mendukung kehidupan sehari-hari secara mandiri."
             },
-
             {
                 id: 3,
                 question: "Mengapa pekerjaan rumah tangga bersifat sangat individual?",
@@ -533,7 +546,6 @@
                 answer: 1,
                 explanation: "Pekerjaan rumah tangga bersifat individual karena setiap orang mempunyai gaya hidup, kebiasaan, nilai, dan prinsip yang berbeda dalam menjalankan kehidupan sehari-hari."
             },
-
             {
                 id: 4,
                 question: "Selain memasak dan membersihkan, contoh aktivitas IADL lainnya adalah...",
@@ -545,7 +557,6 @@
                 answer: 1,
                 explanation: "Mengelola uang dan menggunakan transportasi seperti kereta merupakan contoh IADL karena membutuhkan kemampuan untuk menjalani kehidupan secara mandiri di masyarakat."
             },
-
             {
                 id: 5,
                 question: "Apa fungsi utama makan bagi manusia?",
@@ -557,7 +568,6 @@
                 answer: 1,
                 explanation: "Makan merupakan kebutuhan dasar manusia untuk mempertahankan kehidupan, memperoleh energi, dan menjaga kesehatan tubuh."
             },
-
             {
                 id: 6,
                 question: "Dalam memasak untuk lansia, makanan disiapkan agar...",
@@ -569,7 +579,6 @@
                 answer: 0,
                 explanation: "Makanan untuk lansia perlu disiapkan sesuai kondisi mereka agar mudah dimakan, aman untuk dikonsumsi, dan kandungan gizinya dapat dimanfaatkan tubuh dengan baik."
             },
-
             {
                 id: 7,
                 question: "Apa langkah pertama dalam urutan kegiatan memasak?",
@@ -581,7 +590,6 @@
                 answer: 1,
                 explanation: "Langkah pertama adalah menentukan daftar makanan atau menu. Setelah menu ditentukan, bahan dapat disiapkan dan proses memasak dilakukan."
             },
-
             {
                 id: 8,
                 question: "Langkah terakhir dalam proses memasak dan menyajikan makanan adalah...",
@@ -593,7 +601,6 @@
                 answer: 0,
                 explanation: "Setelah makanan dimasak dan ditata atau disajikan, langkah terakhir adalah membereskan peralatan dan area yang digunakan."
             },
-
             {
                 id: 9,
                 question: "Pemilihan bahan dan cara memasak untuk lansia ditentukan dengan mempertimbangkan...",
@@ -605,7 +612,6 @@
                 answer: 1,
                 explanation: "Dalam menyiapkan makanan untuk lansia, kondisi kesehatan, penyakit, alergi, kemampuan mengunyah dan menelan, serta kebutuhan gizi pengguna perlu diperhatikan."
             },
-
             {
                 id: 10,
                 question: "Hidangan tradisional Tahun Baru di Jepang yang disebutkan dalam materi adalah...",
@@ -617,7 +623,6 @@
                 answer: 1,
                 explanation: "Osechi ryori (おせち料理) adalah hidangan tradisional Jepang yang biasanya disiapkan dan disantap pada Tahun Baru."
             },
-
             {
                 id: 11,
                 question: "Kebiasaan makan dan preferensi rasa makanan lansia biasanya dipengaruhi oleh...",
@@ -629,7 +634,6 @@
                 answer: 0,
                 explanation: "Kebiasaan makan dan selera seseorang dapat dipengaruhi oleh budaya, negara, wilayah tempat tinggal, keluarga, pengalaman hidup, dan preferensi individu."
             },
-
             {
                 id: 12,
                 question: "Tujuan utama dari aktivitas membersihkan adalah...",
@@ -641,7 +645,6 @@
                 answer: 0,
                 explanation: "Membersihkan bertujuan menciptakan lingkungan yang bersih, aman, nyaman, dan mendukung kehidupan lansia."
             },
-
             {
                 id: 13,
                 question: "Apa yang harus dilakukan staf perawat lansia sebelum menata atau membuang barang milik lansia?",
@@ -653,7 +656,6 @@
                 answer: 1,
                 explanation: "Sebelum menata atau membuang barang milik lansia, staf perlu memastikan keinginan pengguna dan mendapatkan persetujuan. Barang pribadi harus dihormati."
             },
-
             {
                 id: 14,
                 question: "Mengapa staf perawat tidak boleh sembarangan membuang barang milik lansia?",
@@ -665,7 +667,6 @@
                 answer: 1,
                 explanation: "Sebuah barang mungkin terlihat tidak berguna bagi orang lain, tetapi memiliki nilai kenangan, kegunaan, atau makna pribadi bagi lansia."
             },
-
             {
                 id: 15,
                 question: "Apa manfaat dari aktivitas mencuci pakaian dan perlengkapan tidur?",
@@ -677,7 +678,6 @@
                 answer: 0,
                 explanation: "Mencuci pakaian dan perlengkapan tidur secara tepat membantu menjaga kebersihan, mengurangi kotoran, dan mendukung kesehatan serta kenyamanan lansia."
             },
-
             {
                 id: 16,
                 question: "Proses mencuci pakaian lansia harus disesuaikan dengan...",
@@ -689,7 +689,6 @@
                 answer: 0,
                 explanation: "Cara mencuci harus disesuaikan dengan bahan pakaian, petunjuk perawatan, tingkat kekotoran, dan kondisi pakaian agar tidak rusak."
             },
-
             {
                 id: 17,
                 question: "Pakaian lansia yang terkena feses, muntahan, dan darah dari penyakit menular harus...",
@@ -701,7 +700,6 @@
                 answer: 1,
                 explanation: "Pakaian atau linen yang terkontaminasi bahan infeksius perlu ditangani dan dicuci secara terpisah sesuai prosedur pencegahan infeksi."
             },
-
             {
                 id: 18,
                 question: "Mengapa lingkungan tempat tinggal lansia perlu ditata?",
@@ -713,7 +711,6 @@
                 answer: 0,
                 explanation: "Penataan lingkungan bertujuan membuat kehidupan lansia lebih aman, nyaman, bersih, dan mudah melakukan aktivitas sehari-hari."
             },
-
             {
                 id: 19,
                 question: "Selain untuk kebersihan dan mencegah kecelakaan, penataan lingkungan juga bertujuan untuk...",
@@ -725,7 +722,6 @@
                 answer: 1,
                 explanation: "Lingkungan perlu ditata tidak hanya untuk kebersihan dan keselamatan, tetapi juga untuk menjaga privasi dan martabat lansia."
             },
-
             {
                 id: 20,
                 question: "Agar lansia tidak mudah terpeleset, koridor dan tangga sebaiknya dibuat dari material yang...",
@@ -737,7 +733,6 @@
                 answer: 1,
                 explanation: "Permukaan koridor dan tangga sebaiknya tidak licin untuk mengurangi risiko lansia terpeleset dan jatuh."
             },
-
             {
                 id: 21,
                 question: "Fasilitas keselamatan yang perlu dipasang di koridor dan tangga untuk lansia adalah...",
@@ -749,7 +744,6 @@
                 answer: 0,
                 explanation: "Pegangan tangan atau handrail membantu lansia menjaga keseimbangan dan berpindah tempat dengan lebih aman."
             },
-
             {
                 id: 22,
                 question: "Pengaturan lingkungan fisik rumah lansia harus memperhatikan kondisi...",
@@ -761,7 +755,6 @@
                 answer: 1,
                 explanation: "Lingkungan perlu disesuaikan dengan kondisi fisik dan mental pengguna agar aktivitas sehari-hari dapat dilakukan dengan aman dan nyaman."
             },
-
             {
                 id: 23,
                 question: "Faktor lingkungan dalam ruangan yang perlu dipertimbangkan untuk kenyamanan lansia adalah...",
@@ -773,7 +766,6 @@
                 answer: 1,
                 explanation: "Suhu, kelembapan, dan ventilasi atau pergantian udara merupakan faktor lingkungan yang berpengaruh terhadap kenyamanan dan kesehatan lansia."
             },
-
             {
                 id: 24,
                 question: "Apa fungsi dari pemanfaatan alat bantu yang sesuai dengan kondisi fisik lansia?",
@@ -785,7 +777,6 @@
                 answer: 1,
                 explanation: "Alat bantu yang sesuai dapat membantu lansia melakukan aktivitas dengan lebih mandiri, aman, dan aktif sesuai kemampuan fisiknya."
             },
-
             {
                 id: 25,
                 question: "Penggunaan alat bantu bagi lansia disiapkan berdasarkan...",
@@ -797,7 +788,6 @@
                 answer: 1,
                 explanation: "Pemilihan alat bantu harus mempertimbangkan kondisi fisik, kemampuan, kebutuhan, dan lingkungan pengguna."
             },
-
             {
                 id: 26,
                 question: "Urutan proses memasak yang benar di bawah ini adalah...",
@@ -809,7 +799,6 @@
                 answer: 2,
                 explanation: "Urutan yang benar adalah menentukan menu atau daftar makanan terlebih dahulu, kemudian menyiapkan bahan, lalu melakukan proses memasak."
             },
-
             {
                 id: 27,
                 question: "Kegiatan menyapu dan mengelap sampah, debu, atau kotoran termasuk dalam aktivitas...",
@@ -821,7 +810,6 @@
                 answer: 1,
                 explanation: "Menyapu dan mengelap debu atau kotoran merupakan bagian dari aktivitas membersihkan lingkungan tempat tinggal."
             },
-
             {
                 id: 28,
                 question: "Mengapa penyajian makanan di Jepang sering disesuaikan dengan musim?",
@@ -833,7 +821,6 @@
                 answer: 1,
                 explanation: "Budaya makanan Jepang sangat memperhatikan musim. Hidangan dan bahan makanan sering disesuaikan dengan musim serta tradisi atau acara tertentu."
             },
-
             {
                 id: 29,
                 question: "Area rumah yang harus dibuat agar mudah digunakan oleh lansia demi kenyamanan dan keselamatan adalah...",
@@ -845,7 +832,6 @@
                 answer: 0,
                 explanation: "Kamar mandi dan toilet merupakan area yang perlu diperhatikan karena memiliki risiko terpeleset, jatuh, dan kesulitan bergerak bagi lansia."
             },
-
             {
                 id: 30,
                 question: "Pekerjaan rumah tangga merupakan...",
@@ -857,7 +843,609 @@
                 answer: 0,
                 explanation: "Pekerjaan rumah tangga merupakan bagian penting dari kehidupan sehari-hari dan termasuk aktivitas yang mendukung kemandirian seseorang."
             }
+        ];
 
+        const questionsDay2 = [
+            {
+                id: 1,
+                question: "Manakah pernyataan di bawah ini yang paling tepat menggambarkan hakikat dari konsep martabat manusia dan posisi pengguna dalam pelayanan perawatan lansia?",
+                options: [
+                    "A. Pengguna adalah objek pasif yang harus sepenuhnya mengikuti jadwal operasional dan keputusan medis dari fasilitas perawatan.",
+                    "B. Pelaku utama dalam kehidupan adalah pengguna itu sendiri, sehingga perawat wajib menghormati nilai-nilai dan cara hidup yang diinginkannya.",
+                    "C. Perawat memiliki wewenang penuh untuk menentukan standar kebahagiaan dan gaya hidup harian yang terbaik bagi pengguna tanpa harus berdiskusi.",
+                    "D. Martabat manusia hanya berlaku bagi lansia yang masih memiliki kemampuan fisik mandiri dan tidak mengalami penurunan fungsi kognitif."
+                ],
+                answer: 1,
+                explanation: "Pelaku utama dalam kehidupan adalah pengguna itu sendiri. Perawat harus menghormati nilai-nilai dan keputusan pengguna."
+            },
+            {
+                id: 2,
+                question: "Filosofi normalisasi sering disalahartikan. Berdasarkan materi resmi, apakah inti utama dari konsep normalisasi tersebut?",
+                options: [
+                    "A. Memaksa penyandang disabilitas untuk mengikuti seluruh aturan standar masyarakat normal tanpa pengecualian.",
+                    "B. Cara berpikir agar penyandang disabilitas dapat hidup secara normal tanpa prasangka dan dilindungi hak asasi manusianya seperti orang lain.",
+                    "C. Program rehabilitasi medis intensif yang bertujuan untuk menyembuhkan total kondisi disabilitas fisik seseorang.",
+                    "D. Pembatasan aktivitas sosial di dalam komunitas khusus agar penyandang disabilitas merasa lebih aman dari lingkungan luar."
+                ],
+                answer: 1,
+                explanation: "Normalisasi adalah cara berpikir agar penyandang disabilitas dapat hidup normal tanpa prasangka dan dilindungi hak asasi manusianya."
+            },
+            {
+                id: 3,
+                question: "Ketika menerapkan prinsip mekanika tubuh untuk mengangkat beban atau membantu pengguna, manakah kesalahan fatal yang sering dilakukan perawat yang justru dapat memicu cedera punggung?",
+                options: [
+                    "A. Memperlebar landasan penopang kaki dan merendahkan pusat berat badan.",
+                    "B. Mengangkat beban hanya dengan menggunakan kekuatan otot punggung bawah sementara posisi lutut tetap lurus kaku.",
+                    "C. Mendekatkan pusat berat badan pengguna ke arah tubuh perawat secara optimal.",
+                    "D. Memanfaatkan kelompok otot besar seperti otot paha dan betis saat melakukan perpindahan."
+                ],
+                answer: 1,
+                explanation: "Mengangkat beban hanya dengan otot punggung bawah sementara posisi lutut lurus adalah postur salah yang menyebabkan beban pinggang bertambah berat."
+            },
+            {
+                id: 4,
+                question: "Dalam struktur kerja sama tim multidisiplin (team approach), apa peran utama dan spesifik dari seorang Spesialis Dukungan Perawatan Lansia (Manajer Perawatan / Care Manager)?",
+                options: [
+                    "A. Melakukan tindakan medis invasif dan meresepkan obat-obatan penurun tekanan darah.",
+                    "B. Menyusun daftar menu makanan dengan memperhitungkan keseimbangan kalori harian.",
+                    "C. Melayani konsultasi dengan pengguna serta berkomunikasi dan berkoordinasi dengan keluarga pengguna.",
+                    "D. Melatih pemulihan fungsi motorik kasar seperti berjalan di fasilitas rehabilitasi."
+                ],
+                answer: 2,
+                explanation: "Manajer perawatan bertugas melayani konsultasi dengan pengguna serta berkoordinasi dengan keluarganya."
+            },
+            {
+                id: 5,
+                question: "Manakah di bawah ini yang bukan merupakan salah satu dari 5 jenis bentuk kekerasan yang dilarang keras karena melanggar hak asasi manusia pengguna?",
+                options: [
+                    "A. Kekerasan fisik dan kekerasan psikis.",
+                    "B. Pengabaian perawatan lansia (neglect).",
+                    "C. Kekerasan ekonomi dan kekerasan seksual.",
+                    "D. Pembatasan administratif fasilitas dan penundaan jam istirahat staf."
+                ],
+                answer: 3,
+                explanation: "5 jenis kekerasan yang diakui meliputi kekerasan fisik, psikis, neglect, ekonomi, dan seksual. Pilihan (D) bukan bagian dari 5 jenis kekerasan tersebut."
+            },
+            {
+                id: 6,
+                question: "Dalam alur proses perawatan lansia (care process), tahapan manakah yang mencakup kegiatan mengumpulkan informasi tentang pengguna serta menganalisis tantangan dalam menjalani aktivitas kehidupan?",
+                options: [
+                    "A. Penyusunan rencana (planning).",
+                    "B. Penilaian (assessment).",
+                    "C. Pelaksanaan (implementation).",
+                    "D. Evaluasi (evaluation)."
+                ],
+                answer: 1,
+                explanation: "Penilaian (assessment) adalah tahap pengumpulan informasi dan analisis tantangan aktivitas kehidupan pengguna."
+            },
+            {
+                id: 7,
+                question: "Prinsip dasar pengendalian penyakit menular mencakup tiga hal utama. Manakah pilihan berikut yang merumuskan tiga prinsip tersebut dengan tepat?",
+                options: [
+                    "A. Tidak membawa masuk, tidak membawa keluar, dan tidak menyebarkan.",
+                    "B. Mengisolasi total, memusnahkan patogen, dan meningkatkan dosis antibiotik.",
+                    "C. Menghapus data medis, menutup fasilitas, dan memulangkan seluruh pengguna.",
+                    "D. Menggunakan sarung tangan, mencuci tangan, dan mengganti masker setiap satu jam."
+                ],
+                answer: 0,
+                explanation: "Tiga dasar pengendalian infeksi mencakup tidak membawa masuk, tidak membawa keluar, dan tidak menyebarkan."
+            },
+            {
+                id: 8,
+                question: "Menurut hierarki kebutuhan manusia oleh A. H. Maslow, kebutuhan untuk melindungi diri sendiri dan menciptakan lingkungan yang bebas dari ancaman fisik maupun psikologis diklasifikasikan sebagai...",
+                options: [
+                    "A. Kebutuhan fisiologis.",
+                    "B. Kebutuhan akan rasa aman.",
+                    "C. Kebutuhan sosial dan kasih sayang.",
+                    "D. Kebutuhan akan aktualisasi diri."
+                ],
+                answer: 1,
+                explanation: "Kebutuhan akan rasa aman adalah kebutuhan untuk melindungi diri sendiri."
+            },
+            {
+                id: 9,
+                question: "Apa definisi yang paling tepat mengenai fungsi dari sistem biologi tubuh yang disebut homeostasis?",
+                options: [
+                    "A. Sistem yang mempercepat penuaan sel tubuh secara sistematis.",
+                    "B. Sistem biologi yang bekerja mempertahankan kondisi internal tubuh agar tetap konstan meskipun lingkungan di luar berubah.",
+                    "C. Sistem kekebalan tubuh yang secara khusus melawan infeksi virus influenza.",
+                    "D. Sistem saraf pusat yang mengatur kecepatan detak jantung saat berolahraga berat."
+                ],
+                answer: 1,
+                explanation: "Homeostasis adalah sistem biologi yang mempertahankan kondisi internal tubuh di tengah perubahan lingkungan."
+            },
+            {
+                id: 10,
+                question: "Pembuluh darah manakah yang bertugas mengalirkan darah kotor yang kaya akan karbon dioksida dan zat buangan dari seluruh tubuh kembali ke jantung dan paru-paru?",
+                options: [
+                    "A. Pembuluh nadi (arteri).",
+                    "B. Pembuluh balik (vena).",
+                    "C. Pembuluh darah halus (kapiler).",
+                    "D. Aorta utama."
+                ],
+                answer: 1,
+                explanation: "Pembuluh balik (vena) mengumpulkan darah kotor yang kaya karbon dioksida untuk dikembalikan ke jantung dan paru-paru."
+            },
+            {
+                id: 11,
+                question: "Bagian dari struktur otak besar manusia yang berfungsi secara spesifik sebagai pusat saraf otonom untuk mengatur suhu tubuh serta pola tidur adalah...",
+                options: [
+                    "A. Otak kecil (cerebellum).",
+                    "B. Diensefalon (talamus dan hipotalamus).",
+                    "C. Batang otak (medula oblongata).",
+                    "D. Lobus oksipital."
+                ],
+                answer: 1,
+                explanation: "Diensefalon (talamus dan hipotalamus) berfungsi sebagai pusat saraf otonom yang mengatur suhu tubuh dan tidur."
+            },
+            {
+                id: 12,
+                question: "Ketika seseorang berada dalam kondisi stres, ketakutan, atau sedang aktif beraktivitas, sistem saraf otonom manakah yang mendominasi, dan apa dampaknya pada saluran pencernaan?",
+                options: [
+                    "A. Saraf simpatik aktif; gerakan saluran usus berkurang.",
+                    "B. Saraf parasimpatik aktif; gerakan saluran usus bertambah cepat.",
+                    "C. Saraf simpatik aktif; sekresi cairan lambung meningkat drastis.",
+                    "D. Saraf parasimpatik aktif; pembuluh darah tepi menyempit secara total."
+                ],
+                answer: 0,
+                explanation: "Saraf simpatik aktif saat beraktivitas/stres; dampaknya antara lain membuat gerakan saluran usus berkurang."
+            },
+            {
+                id: 13,
+                question: "Perubahan fisik akibat penuaan pada indra pendengaran sering kali menyebabkan seorang lansia mengalami kesulitan mendengar bunyi dengan frekuensi tinggi. Kondisi ini dikenal dengan istilah...",
+                options: [
+                    "A. Afasia.",
+                    "B. Hipoakusis.",
+                    "C. Sianosis.",
+                    "D. Presbiopia."
+                ],
+                answer: 1,
+                explanation: "Hipoakusis adalah kondisi menurunnya daya pendengaran sehingga sulit mendengar bunyi tinggi."
+            },
+            {
+                id: 14,
+                question: "Gejala umum berupa ketidakseimbangan antara asupan cairan dan pengeluaran cairan yang menyebabkan bibir kering, penurunan volume urine, serta peningkatan denyut nadi pada lansia disebut...",
+                options: [
+                    "A. Edema.",
+                    "B. Dehidrasi.",
+                    "C. Konstipasi.",
+                    "D. Pruritus."
+                ],
+                answer: 1,
+                explanation: "Dehidrasi adalah kondisi kadar air tubuh di bawah normal akibat ketidakseimbangan asupan dan pengeluaran cairan."
+            },
+            {
+                id: 15,
+                question: "Penyakit serebrovaskular yang terjadi secara spesifik akibat pecahnya pembuluh darah di dalam otak dinamakan...",
+                options: [
+                    "A. Infark serebral.",
+                    "B. Angina pektoris.",
+                    "C. Hemorrhagia intrakranial.",
+                    "D. Infark miokard."
+                ],
+                answer: 2,
+                explanation: "Hemorrhagia intrakranial adalah jenis penyakit serebrovaskular yang terjadi karena pembuluh darah di otak pecah."
+            },
+            {
+                id: 16,
+                question: "Berdasarkan kerangka ICF (International Classification of Functioning, Disability and Health), bagaimana disabilitas dipandang secara konseptual?",
+                options: [
+                    "A. Disabilitas adalah kegagalan mutlak fungsi biologis individu tanpa pengaruh faktor ekternal.",
+                    "B. Disabilitas dipandang bukan dari kesan negatifnya, melainkan sebagai hasil interaksi dengan berbagai halangan serta bagian dari individualitas manusia.",
+                    "C. Disabilitas merupakan penyakit kejiwaan yang hanya dapat disembuhkan melalui isolasi sosial.",
+                    "D. Disabilitas adalah hambatan permanen yang menghapuskan seluruh hak partisipasi seseorang di masyarakat."
+                ],
+                answer: 1,
+                explanation: "Berdasarkan ICF, disabilitas dipandang bukan dari sisi negatifnya melainkan hasil interaksi dengan halangan serta bagian individualitas manusia."
+            },
+            {
+                id: 17,
+                question: "Di antara jenis demensia berikut, manakah yang ditandai oleh gejala klinis berupa halusinasi visual (melihat sesuatu yang tidak terlihat), gejala parkinson (berlangkah kecil), dan bersuara sesuai mimpi?",
+                options: [
+                    "A. Demensia tipe Alzheimer.",
+                    "B. Demensia vaskular.",
+                    "C. Demensia dengan badan Lewy.",
+                    "D. Demensia frontotemporal."
+                ],
+                answer: 2,
+                explanation: "Demensia dengan badan Lewy ditandai halusinasi visual, gejala parkinson, dan bersuara sesuai mimpi."
+            },
+            {
+                id: 18,
+                question: "Gejala inti pada penderita demensia yang membuat seseorang kehilangan kemampuan dalam memahami prosedur tugas dan tidak mampu merencanakan serta melakukan suatu tindakan disebut...",
+                options: [
+                    "A. Disorientasi.",
+                    "B. Gangguan memori.",
+                    "C. Disfungsi eksekutif.",
+                    "D. Afasia motorik."
+                ],
+                answer: 2,
+                explanation: "Disfungsi eksekutif adalah kondisi di mana seseorang tidak bisa memahami prosedur dan tidak bisa bertindak."
+            },
+            {
+                id: 19,
+                question: "Manakah teknik bertanya dalam komunikasi yang paling berisiko membuat lawan bicara merasa disudutkan jika digunakan secara terus-menerus?",
+                options: [
+                    "A. Pertanyaan tertutup dengan pilihan \"Ya\" atau \"Tidak\".",
+                    "B. Pertanyaan terbuka dengan kata \"Bagaimana\" atau \"Apa\".",
+                    "C. Pertanyaan yang terus-menerus menanyakan alasan dengan kata \"Mengapa\".",
+                    "D. Teknik pengulangan kata kunci dari kalimat pengguna."
+                ],
+                answer: 2,
+                explanation: "Terus menanyakan alasan seperti \"Mengapa?\" pada pertanyaan terbuka dapat membuat lawan bicara merasa disudutkan."
+            },
+            {
+                id: 20,
+                question: "Saat berkomunikasi dengan pengidap gangguan penglihatan total, metode penjelasan posisi makanan di atas piring dapat dilakukan dengan mengibaratkan letak makanan tersebut menggunakan posisi...",
+                options: [
+                    "A. Arah mata angin (Utara, Selatan, Timur, Barat).",
+                    "B. Posisi jarum jam (misalnya lauk di posisi jam 3).",
+                    "C. Koordinat angka meterik dari sisi kiri piring.",
+                    "D. Ukuran suhu panas atau dingin makanan."
+                ],
+                answer: 1,
+                explanation: "Metode posisi jarum jam digunakan saat makan untuk menjelaskan posisi makanan kepada pengidap gangguan penglihatan."
+            },
+            {
+                id: 21,
+                question: "Metode komunikasi non-verbal yang dirancang khusus bagi penyandang gangguan pendengaran dengan memadukan gerakan tangan, jari, lengan, serta ekspresi wajah dan leher disebut...",
+                options: [
+                    "A. Membaca gerak bibir (oralism).",
+                    "B. Komunikasi tertulis.",
+                    "C. Bahasa isyarat.",
+                    "D. Penggunaan alat bantu dengar digital."
+                ],
+                answer: 2,
+                explanation: "Bahasa isyarat menyampaikan makna melalui perpaduan gerakan tangan, jari, lengan, serta ekspresi wajah/leher."
+            },
+            {
+                id: 22,
+                question: "Dalam penulisan catatan keperawatan, manakah dari pilihan berikut yang merupakan contoh murni dari fakta objektif?",
+                options: [
+                    "A. Pengguna mengeluh bahwa kepalanya terasa sangat pusing sejak pagi hari.",
+                    "B. Pengguna menyatakan merasa sedih karena tidak bisa tidur semalaman.",
+                    "C. Hasil pengukuran suhu tubuh menunjukkan angka 38,2 derajat Celcius.",
+                    "D. Pengguna menolak makan siang karena merasa masakannya tidak enak."
+                ],
+                answer: 2,
+                explanation: "Hasil pengukuran angka suhu tubuh (38,2°C) adalah fakta objektif, sedangkan keluhan rasa pusing atau sedih adalah fakta subjektif."
+            },
+            {
+                id: 23,
+                question: "Berdasarkan kaidah penulisan catatan laporan profesional (5W1H), elemen manakah yang diwakili oleh pertanyaan \"Mengapa\" (Why)?",
+                options: [
+                    "A. Waktu kejadian.",
+                    "B. Alasan atau latar belakang mengapa suatu peristiwa atau tindakan terjadi.",
+                    "C. Tempat atau lokasi spesifik kejadian.",
+                    "D. Identitas staf atau pengguna yang terlibat."
+                ],
+                answer: 1,
+                explanation: "Huruf \"W\" (Why) menanyakan alasan, sedangkan elemen 5W1H mencakup When, Where, Who, What, Why, dan How."
+            },
+            {
+                id: 24,
+                question: "Aktivitas harian dasar yang mencakup rangkaian gerakan tubuh untuk kelangsungan hidup mandiri seperti makan, berpindah, dan berganti pakaian disebut sebagai...",
+                options: [
+                    "A. IADL (Instrumental Activities of Daily Living).",
+                    "B. ADL (Activities of Daily Living).",
+                    "C. BPSD (Behavioral and Psychological Symptoms of Dementia).",
+                    "D. ICF (International Classification of Functioning)."
+                ],
+                answer: 1,
+                explanation: "ADL (Activities of Daily Living) adalah rangkaian gerakan tubuh dasar untuk kehidupan sehari-hari."
+            },
+            {
+                id: 25,
+                question: "Posisi berbaring telentang di atas tempat tidur yang merupakan postur paling stabil bagi tubuh manusia disebut dengan istilah posisi...",
+                options: [
+                    "A. Supinasi.",
+                    "B. Pronasi.",
+                    "C. Lateral (miring).",
+                    "D. Fowler (setengah duduk)."
+                ],
+                answer: 0,
+                explanation: "Supinasi adalah posisi berbaring telentang yang merupakan postur paling stabil."
+            },
+            {
+                id: 26,
+                question: "Kumpulan kondisi penurunan fungsi fisik dan mental yang timbul akibat seseorang terlalu lama berbaring atau tidak aktif bergerak disebut...",
+                options: [
+                    "A. Sindrom disuse (disuse syndrome).",
+                    "B. Hipotensi ortostatik.",
+                    "C. Inkontinensia luapan.",
+                    "D. Pneumonia aspirasi."
+                ],
+                answer: 0,
+                explanation: "Sindrom disuse adalah kondisi penurunan fisik dan mental akibat lama berbaring atau tidak aktif."
+            },
+            {
+                id: 27,
+                question: "Alat bantu jalan jenis tongkat yang memiliki area penopang lebih luas dibandingkan tongkat standar karena ditopang oleh beberapa kaki pendukung disebut...",
+                options: [
+                    "A. Tongkat T (T-cane).",
+                    "B. Tongkat multikaki.",
+                    "C. Pispot urin.",
+                    "D. Papan penggeser."
+                ],
+                answer: 1,
+                explanation: "Tongkat multikaki memiliki area penopang lebih luas dan stabil dibandingkan tongkat tunggal."
+            },
+            {
+                id: 28,
+                question: "Pada kasus pengguna dengan kelumpuhan sebelah sisi (hemiplegia), bagaimana urutan langkah yang benar saat berjalan menggunakan tongkat dengan metode \"jalan 2 gerakan\"?",
+                options: [
+                    "A. Melangkahkan kaki sehat terlebih dahulu, lalu disusul kaki sakit.",
+                    "B. Melangkahkan tongkat dan sisi sakit secara bersamaan, kemudian menyusul kaki sehat.",
+                    "C. Melangkahkan kaki sakit terlebih dahulu, lalu menyusul tongkat.",
+                    "D. Melangkahkan seluruh anggota tubuh secara bersamaan tanpa pola."
+                ],
+                answer: 1,
+                explanation: "Pada jalan 2 gerakan, urutannya adalah melangkah bersamaan antara tongkat dan sisi sakit, lalu menyusul sisi sehat."
+            },
+            {
+                id: 29,
+                question: "Fase dalam proses menelan di mana makanan dikunyah di dalam rongga mulut dan dicampur dengan saliva untuk membentuk gumpalan makanan (bolus) dinamakan fase...",
+                options: [
+                    "A. Pendahuluan.",
+                    "B. Persiapan.",
+                    "C. Rongga mulut (oral phase).",
+                    "D. Faring."
+                ],
+                answer: 2,
+                explanation: "Fase rongga mulut (oral phase) adalah saat makanan dikunyah dan dicampur saliva menjadi bolus."
+            },
+            {
+                id: 30,
+                question: "Tindakan pencegahan yang harus dilakukan setelah pengguna selesai makan untuk menghindari risiko pneumonia aspirasi adalah...",
+                options: [
+                    "A. Meminta pengguna langsung tidur telentang di tempat tidur.",
+                    "B. Meminta pengguna tetap berada dalam posisi duduk selama kurang lebih 30 menit setelah makan.",
+                    "C. Memberikan cairan dingin dalam jumlah besar secara cepat.",
+                    "D. Melakukan pemijatan perut searah jarum jam secara keras."
+                ],
+                answer: 1,
+                explanation: "Meminta pengguna tetap duduk selama 30 menit setelah makan bertujuan mencegah pneumonia aspirasi."
+            },
+            {
+                id: 31,
+                question: "Organ utama dalam sistem urinaria yang berfungsi menyaring zat buangan dari dalam darah untuk memproduksi urine adalah...",
+                options: [
+                    "A. Ureter.",
+                    "B. Ginjal.",
+                    "C. Kandung kemih.",
+                    "D. Uretra."
+                ],
+                answer: 1,
+                explanation: "Ginjal berfungsi menyaring zat buangan darah dan memproduksi urine."
+            },
+            {
+                id: 32,
+                question: "Jenis inkontinensia urine di mana seseorang mengalami kondisi mengompol secara tidak sengaja akibat tekanan di dalam perut meningkat, seperti saat batuk atau bersin, disebut...",
+                options: [
+                    "A. Inkontinensia urgensi.",
+                    "B. Inkontinensia stres.",
+                    "C. Inkontinensia luapan.",
+                    "D. Inkontinensia fungsional."
+                ],
+                answer: 1,
+                explanation: "Inkontinensia stres terjadi saat mengompol akibat peningkatan tekanan di perut seperti saat batuk/bersin."
+            },
+            {
+                id: 33,
+                question: "Saat melakukan tindakan perawatan mengganti popok untuk pengguna wanita, arah penyekaan area genital yang benar untuk mencegah risiko infeksi bakteri adalah...",
+                options: [
+                    "A. Dari arah anus menuju ke depan uretra.",
+                    "B. Dari arah uretra menuju ke belakang (arah anus).",
+                    "C. Melingkar bolak-balik secara acak di sekitar paha.",
+                    "D. Membersihkan area belakang terlebih dahulu sebelum menyentuh bagian depan."
+                ],
+                answer: 1,
+                explanation: "Penyekaan genital wanita harus dari uretra ke arah belakang (anus) untuk mencegah infeksi."
+            },
+            {
+                id: 34,
+                question: "Prinsip berpakaian yang benar bagi pengguna dengan kelumpuhan sebelah sisi (hemiplegia) saat mengenakan baju atasan adalah...",
+                options: [
+                    "A. Memasukkan lengan dari sisi yang sehat terlebih dahulu, lalu sisi yang sakit.",
+                    "B. Memasukkan lengan melalui sisi yang sakit (sakit sisi) terlebih dahulu, baru kemudian sisi yang sehat.",
+                    "C. Memasukkan kedua lengan secara bersamaan tanpa mempedulikan kondisi tubuh.",
+                    "D. Meminta pengguna mengenakan baju melalui kepala tanpa bantuan lengan."
+                ],
+                answer: 1,
+                explanation: "Saat memakai baju pada hemiplegia, dahulukan lengan pada sisi yang sakit (sakit sisi)."
+            },
+            {
+                id: 35,
+                question: "Selain menjaga kebersihan rongga mulut, apa fungsi penting lain dari perawatan rongga mulut bagi lansia?",
+                options: [
+                    "A. Menurunkan sekresi saliva agar mulut tidak basah.",
+                    "B. Merangsang kepekaan indra pengecap dan meningkatkan nafsu makan.",
+                    "C. Menggantikan fungsi lambung dalam mencerna serat makanan.",
+                    "D. Mempercepat pengeringan luka di sekitar bibir."
+                ],
+                answer: 1,
+                explanation: "Perawatan rongga mulut menjaga indra pengecap, merangsang saliva, dan meningkatkan nafsu makan."
+            },
+            {
+                id: 36,
+                question: "Bagaimana cara penyimpanan gigi palsu (denture) yang benar setelah dibersihkan dengan sikat gigi dan air mengalir?",
+                options: [
+                    "A. Dibiarkan di udara terbuka agar permukaannya cepat kering.",
+                    "B. Disimpan di dalam wadah yang berisi air atau cairan pembersih khusus agar tidak retak.",
+                    "C. Direbus ke dalam air panas mendidih selama 10 menit.",
+                    "D. Disimpan di dalam saku seragam perawat agar mudah diambil."
+                ],
+                answer: 1,
+                explanation: "Gigi palsu harus disimpan dalam wadah berisi air agar tidak retak akibat kering."
+            },
+            {
+                id: 37,
+                question: "Bagian tubuh mana yang paling mudah kotor dan harus diperhatikan secara cermat saat mandi karena seringnya terjadi penumpukan sekresi keringat serta sebum?",
+                options: [
+                    "A. Area kulit yang berlipat-lipat.",
+                    "B. Bagian permukaan telapak kuku tangan.",
+                    "C. Bagian tulang kering kaki bagian depan.",
+                    "D. Area punggung tangan kanan."
+                ],
+                answer: 0,
+                explanation: "Area kulit yang berlipat-lipat adalah bagian yang paling mudah kotor oleh keringat dan sebum."
+            },
+            {
+                id: 38,
+                question: "Untuk mencegah terjadinya \"kejutan panas\" (heat shock) akibat perbedaan suhu drastis antara ruang ganti dan kamar mandi, tindakan apa yang harus dilakukan?",
+                options: [
+                    "A. Menurunkan suhu pendingin di ruang ganti menjadi sangat dingin.",
+                    "B. Mengatur dan menyesuaikan suhu ruangan serta suhu air hangat di kamar mandi.",
+                    "C. Membiarkan jendela kamar mandi terbuka lebar saat musim dingin.",
+                    "D. Menyiram lantai kamar mandi dengan air es sebelum dimasuki."
+                ],
+                answer: 1,
+                explanation: "Kejutan panas (heat shock) dicegah dengan menata suhu ruangan dan air hangat di kamar mandi."
+            },
+            {
+                id: 39,
+                question: "Urutan bagian tubuh yang dibasuh saat melakukan tindakan seka mandi seluruh tubuh (full body wipe) secara standar adalah...",
+                options: [
+                    "A. Kaki, punggung, lalu wajah.",
+                    "B. Wajah, lengan, dada, punggung, kaki, dan area genital.",
+                    "C. Area genital, kaki, lalu wajah.",
+                    "D. Perut, wajah, lalu tangan."
+                ],
+                answer: 1,
+                explanation: "Urutan seka mandi seluruh tubuh dimulai dari wajah, lengan, dada, punggung, kaki, hingga area genital."
+            },
+            {
+                id: 40,
+                question: "Saat menyeka bagian wajah pengguna sewaktu mandi seka atau mencuci muka, arah gerakan menyeka yang higienis dan benar dimulai dari...",
+                options: [
+                    "A. Bagian area sekitar mata/atas menuju ke arah bawah.",
+                    "B. Bagian dagu ditarik ke atas menuju dahi.",
+                    "C. Bagian telinga ditarik ke hidung.",
+                    "D. Menggosok secara memutar di bagian pipi."
+                ],
+                answer: 0,
+                explanation: "Penyekaan wajah yang benar dilakukan dari arah atas (sekitar mata) menuju ke bawah."
+            },
+            {
+                id: 41,
+                question: "Apa tujuan utama dari penyusunan rencana perawatan lansia (care plan) yang dilakukan oleh tim profesional?",
+                options: [
+                    "A. Menyamaratakan seluruh jadwal harian seluruh pengguna di fasilitas tanpa terkecuali.",
+                    "B. Memastikan perawatan lansia dilakukan sesuai rencana dengan mengupayakan dukungan kemandirian pengguna.",
+                    "C. Membatasi hak bersuara keluarga pengguna dalam menentukan jenis pelayanan.",
+                    "D. Mengurangi jam kerja staf perawat lansia di malam hari."
+                ],
+                answer: 1,
+                explanation: "Perawatan dilakukan sesuai rencana dengan mengupayakan dukungan kemandirian pengguna."
+            },
+            {
+                id: 42,
+                question: "Dokumen atau catatan apakah yang biasanya digunakan untuk melakukan serah terima informasi kondisi pengguna antar-staf perawat saat pergantian waktu tugas (shift)?",
+                options: [
+                    "A. Buku harian pribadi pengguna.",
+                    "B. Catatan tugas terima-serah (handover) dan laporan kasus.",
+                    "C. Brosur promosi fasilitas kesejahteraan.",
+                    "D. Surat keputusan pemerintah daerah."
+                ],
+                answer: 1,
+                explanation: "Catatan tugas terima-serah (handover) dan laporan kasus digunakan untuk berbagi informasi antar-staf."
+            },
+            {
+                id: 43,
+                question: "Manakah metode yang paling tepat untuk mengurangi beban pada jantung saat seorang pengguna mengalami sesak napas akibat gagal jantung?",
+                options: [
+                    "A. Membaringkan pengguna secara rata tanpa bantal.",
+                    "B. Mengatur posisi untuk mengurangi beban pada jantung (seperti posisi setengah duduk atau disokong bantal).",
+                    "C. Meminta pengguna melakukan olahraga lari ringan di tempat.",
+                    "D. Menutup seluruh ventilasi udara di dalam kamar."
+                ],
+                answer: 1,
+                explanation: "Posisi setengah duduk atau disokong bantal digunakan untuk mengurangi beban pada jantung saat sesak."
+            },
+            {
+                id: 44,
+                question: "Penyakit rapuhnya tulang akibat penurunan massa tulang dan kekurangan kalsium yang membuat lansia sangat rentan mengalami patah tulang (fraktur) disebut...",
+                options: [
+                    "A. Osteoporosis.",
+                    "B. Diabetes melitus.",
+                    "C. Arteriosklerosis.",
+                    "D. Skizofrenia."
+                ],
+                answer: 0,
+                explanation: "Osteoporosis adalah penyakit rapuhnya tulang akibat massa tulang berkurang."
+            },
+            {
+                id: 45,
+                question: "Apa tindakan pencegahan utama yang harus dilakukan oleh perawat saat mendampingi pengguna berjalan di koridor untuk mencegah kecelakaan jatuh?",
+                options: [
+                    "A. Membiarkan pengguna mengenakan sandal longgar dan celana yang sangat panjang.",
+                    "B. Memastikan pakaian dan alas kaki pengguna sudah tepat serta memeriksa lingkungan dari lantai basah atau kabel melintang.",
+                    "C. Meminta pengguna berjalan seorang diri tanpa pengawasan di tempat gelap.",
+                    "D. Melepaskan seluruh alat bantu jalan yang biasa digunakan pengguna."
+                ],
+                answer: 1,
+                explanation: "Pencegahan jatuh mencakup memastikan pakaian/alas kaki tepat serta memeriksa lingkungan dari lantai basah atau kabel."
+            },
+            {
+                id: 46,
+                question: "Dalam teknik komunikasi dengan pengidap demensia, sikap mental apa yang wajib ditunjukkan oleh perawat saat menghadapi pengguna yang mengalami kebingungan atau delusi?",
+                options: [
+                    "A. Membanting pintu kamar agar pengguna merasa jera.",
+                    "B. Menerima perkataan dan tindakan pengguna tanpa membantahnya, serta mendengarkan dengan empati.",
+                    "C. Memperdebatkan isi pembicaraan pengguna sampai ia mengaku salah.",
+                    "D. Mengabaikan sepenuhnya pertanyaan yang diajukan oleh pengguna."
+                ],
+                answer: 1,
+                explanation: "Perawat harus menerima perkataan pengguna demensia tanpa membantahnya dan mendengarkan dengan empati."
+            },
+            {
+                id: 47,
+                question: "Ketika seorang perawat lansia menggunakan alkohol pembersih tangan (hand rub), langkah apa yang harus dilakukan terlebih dahulu jika tangan terlihat kotor secara fisik?",
+                options: [
+                    "A. Langsung menyemprotkan alkohol dalam jumlah banyak ke tangan yang kotor.",
+                    "B. Mencuci tangan terlebih dahulu dengan sabun cair dan air mengalir sebelum menggunakan alkohol.",
+                    "C. Mengelap tangan menggunakan kain lap kering yang ada di saku.",
+                    "D. Mengabaikan kotoran tersebut karena alkohol akan otomatis membersihkannya."
+                ],
+                answer: 1,
+                explanation: "Jika kotoran terlihat, tangan harus dicuci dulu dengan sabun dan air mengalir sebelum memakai alkohol."
+            },
+            {
+                id: 48,
+                question: "Bagian tangan mana yang menurut hasil penelitian kebersihan tangan sering kali menjadi area yang paling tidak tercuci dengan baik saat mencuci tangan?",
+                options: [
+                    "A. Telapak tangan bagian tengah.",
+                    "B. Ujung jari, sela-sela jari, dan ibu jari.",
+                    "C. Pergelangan tangan luar.",
+                    "D. Punggung telapak tangan secara keseluruhan."
+                ],
+                answer: 1,
+                explanation: "Bagian yang paling mudah tidak tercuci bersih adalah ujung jari, sela-sela jari, dan ibu jari."
+            },
+            {
+                id: 49,
+                question: "Mengapa staf perawat lansia sangat dianjurkan untuk mendahulukan sisi tubuh yang sehat saat melepas pakaian pada pengguna yang mengalami kelumpuhan sebelah sisi (hemiplegia)?",
+                options: [
+                    "A. Karena sisi yang sehat memiliki jangkauan gerak yang lebih luas dan dapat mengurangi beban atau kesulitan pada sisi tubuh yang sakit.",
+                    "B. Karena sisi yang sehat tidak boleh digerakkan sama sekali.",
+                    "C. Karena peraturan fasilitas mewajibkan urutan tersebut tanpa alasan medis.",
+                    "D. Karena pakaian selalu dirancang khusus hanya untuk dibuka dari sisi kiri."
+                ],
+                answer: 0,
+                explanation: "Melepas pakaian dimulai dari sisi yang sehat karena jangkauannya luas dan mengurangi beban pada sisi yang sakit."
+            },
+            {
+                id: 50,
+                question: "Apa manfaat utama dari pelaksanaan simulasi bencana dan penyiapan barang darurat secara rutin di fasilitas perawatan lansia?",
+                options: [
+                    "A. Agar staf dan pengguna tidak panik serta siap menghadapi situasi darurat bencana kapan saja.",
+                    "B. Untuk memenuhi syarat administratif penilaian pajak tahunan fasilitas.",
+                    "C. Sebagai ajang hiburan rekreasi tahunan bagi keluarga pengguna.",
+                    "D. Menguji ketahanan fisik staf perawat dalam berlari jarak jauh."
+                ],
+                answer: 0,
+                explanation: "Simulasi bencana dan penyiapan barang dilakukan agar tidak panik saat bencana terjadi."
+            }
         ];
 
 
@@ -867,17 +1455,77 @@
         ============================================================
         */
 
+        let currentDay = 1;
+
+        let activeQuestions = questionsDay1;
+
         let currentTab = 'quiz';
 
         let currentQuestionIndex = 0;
 
-        let userAnswers = new Array(questionsData.length).fill(null);
+        let userAnswers = new Array(activeQuestions.length).fill(null);
 
         let quizTimerSeconds = 0;
 
         let timerInterval = null;
 
         let allAnswersVisibleInStudy = false;
+
+
+        /*
+        ============================================================
+        CHANGE DAY (SET SOAL)
+        ============================================================
+        */
+
+        function changeDay(day) {
+            currentDay = parseInt(day);
+            activeQuestions = (currentDay === 1) ? questionsDay1 : questionsDay2;
+            
+            // Sync UI Elements
+            document.getElementById('daySelector').value = currentDay;
+            
+            const btnDay1 = document.getElementById('btnSelectDay1');
+            const btnDay2 = document.getElementById('btnSelectDay2');
+            
+            if (currentDay === 1) {
+                btnDay1.className = "px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-rosebrand-600 shadow-sm";
+                btnDay2.className = "px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-600 hover:bg-white/50";
+                
+                document.getElementById('headerSubTitle').innerText = "Hari Pertama: IADL & Pekerjaan Rumah Tangga";
+                document.getElementById('startCardTitle').innerText = "Simulasi Kuis SSW Kaigo - Hari 1";
+                document.getElementById('startCardDesc').innerHTML = "Uji pengetahuan Anda tentang <b>IADL dan Pekerjaan Rumah Tangga</b> dalam perawatan lansia.";
+                document.getElementById('startCardTotal').innerText = "30 Soal";
+                document.getElementById('quizDayBadge').innerText = "Hari 1";
+                document.getElementById('studyModeTitle').innerText = "Mode Belajar Kaigo - Hari 1";
+                document.getElementById('studyModeDesc').innerText = "Pelajari 30 soal IADL dan pekerjaan rumah tangga beserta kunci jawaban dan pembahasannya.";
+            } else {
+                btnDay2.className = "px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-rosebrand-600 shadow-sm";
+                btnDay1.className = "px-4 py-2 text-xs sm:text-sm font-bold rounded-xl transition text-slate-600 hover:bg-white/50";
+                
+                document.getElementById('headerSubTitle').innerText = "Hari Ke-2: Pelayanan Perawatan Lansia & Medis Dasar";
+                document.getElementById('startCardTitle').innerText = "Simulasi Kuis SSW Kaigo - Hari 2";
+                document.getElementById('startCardDesc').innerHTML = "Uji pengetahuan Anda tentang <b>Konsep Perawatan, Etika, Komunikasi, dan Pengetahuan Medis Dasar</b>.";
+                document.getElementById('startCardTotal').innerText = "50 Soal";
+                document.getElementById('quizDayBadge').innerText = "Hari 2";
+                document.getElementById('studyModeTitle').innerText = "Mode Belajar Kaigo - Hari 2";
+                document.getElementById('studyModeDesc').innerText = "Pelajari 50 soal pilihan ganda perawatan lansia beserta kunci jawaban dan pembahasannya.";
+            }
+
+            // Reset Quiz State
+            currentQuestionIndex = 0;
+            userAnswers = new Array(activeQuestions.length).fill(null);
+            
+            if (currentTab === 'study') {
+                renderStudyList();
+            } else {
+                // If in quiz mode, return to start card
+                document.getElementById('quizStartCard').classList.remove('hidden');
+                document.getElementById('quizActiveCard').classList.add('hidden');
+                document.getElementById('quizResultCard').classList.add('hidden');
+                clearInterval(timerInterval);
+            }
+        }
 
 
         /*
@@ -1036,7 +1684,7 @@
             currentQuestionIndex = 0;
 
             userAnswers =
-                new Array(questionsData.length).fill(null);
+                new Array(activeQuestions.length).fill(null);
 
             quizTimerSeconds = 0;
 
@@ -1102,7 +1750,7 @@
         function renderCurrentQuestion() {
 
             const q =
-                questionsData[currentQuestionIndex];
+                activeQuestions[currentQuestionIndex];
 
 
             document.getElementById(
@@ -1114,12 +1762,12 @@
             document.getElementById(
                 'quizProgressText'
             ).innerText =
-                `Soal ${currentQuestionIndex + 1} dari ${questionsData.length}`;
+                `Soal ${currentQuestionIndex + 1} dari ${activeQuestions.length}`;
 
 
             const progressPercent =
                 ((currentQuestionIndex + 1) /
-                    questionsData.length) * 100;
+                    activeQuestions.length) * 100;
 
 
             document.getElementById(
@@ -1286,7 +1934,7 @@
 
             if (
                 currentQuestionIndex ===
-                questionsData.length - 1
+                activeQuestions.length - 1
             ) {
 
                 btnNextSpan.innerText =
@@ -1322,7 +1970,7 @@
 
 
             const q =
-                questionsData[currentQuestionIndex];
+                activeQuestions[currentQuestionIndex];
 
 
             if (index === q.answer) {
@@ -1351,7 +1999,7 @@
 
             if (
                 currentQuestionIndex <
-                questionsData.length - 1
+                activeQuestions.length - 1
             ) {
 
                 currentQuestionIndex++;
@@ -1405,7 +2053,7 @@
 
                     if (
                         ans ===
-                        questionsData[i].answer
+                        activeQuestions[i].answer
                     ) {
 
                         correctCount++;
@@ -1419,7 +2067,7 @@
             const scorePercentage =
                 Math.round(
                     (correctCount /
-                        questionsData.length) * 100
+                        activeQuestions.length) * 100
                 );
 
 
@@ -1442,7 +2090,7 @@
             document.getElementById(
                 'scoreDetail'
             ).innerText =
-                `${correctCount} / ${questionsData.length}`;
+                `${correctCount} / ${activeQuestions.length}`;
 
 
             const mins =
@@ -1539,7 +2187,7 @@
             container.innerHTML = '';
 
 
-            questionsData.forEach(
+            activeQuestions.forEach(
                 (q, index) => {
 
                     const card =
@@ -1561,7 +2209,7 @@
                         <div class="flex items-start justify-between gap-3 mb-3">
 
                             <span class="px-2.5 py-1 bg-rosebrand-50 text-rosebrand-700 rounded-lg text-xs font-bold border border-rosebrand-100">
-                                Soal #${q.id}
+                                Soal #${q.id} (Hari ${currentDay})
                             </span>
 
 
@@ -1638,7 +2286,7 @@
 
                                 <i class="fa-solid fa-lightbulb text-rosebrand-600"></i>
 
-                                Prinsip Kaigo:
+                                Pembahasan & Prinsip Kaigo:
 
                             </div>
 
